@@ -29,6 +29,5 @@ namespace GRT.Controllers
         {
             return await _context.Projects.FirstOrDefaultAsync(x => x.Id == id);
         }
-
     }
 }

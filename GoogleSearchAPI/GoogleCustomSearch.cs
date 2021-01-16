@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Net;
 
 namespace GRT.GoogleSearchAPI
@@ -21,7 +20,7 @@ namespace GRT.GoogleSearchAPI
 
             while (found == false && start < 100)
             {
-                string result = webClient.DownloadString(String.Format("https://www.googleapis.com/customsearch/v1?key={0}&cx={1}&q={2}&gl={3}&start={4}&hl={5}&googlehost={6}alt=json", apiKey, cx, query, gl, start, hl, googlehost));
+                string result = webClient.DownloadString(string.Format("https://www.googleapis.com/customsearch/v1?key={0}&cx={1}&q={2}&gl={3}&start={4}&hl={5}&googlehost={6}alt=json", apiKey, cx, query, gl, start, hl, googlehost));
                 JObject obj = JObject.Parse(result);
                 var token = (JArray)obj.SelectToken("items");
 
@@ -36,8 +35,10 @@ namespace GRT.GoogleSearchAPI
                         break;
                     }
                 }
+
                 start += 10;
             }
+
             return tempPosition;
         }
     }

@@ -56,7 +56,7 @@ namespace GRT.Controllers
             {
                 Date = date,
                 KeywordId = id,
-                Position = position
+                Position = position,
             };
 
             await _context.Results.AddAsync(newResult);
