@@ -19,13 +19,13 @@ namespace GRT.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Project>>> GetAllProjects()
+        public async Task<ActionResult<IEnumerable<Project>>> Get()
         {
             return await _context.Projects.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Project>> GetProjectById(int id)
+        public async Task<ActionResult<Project>> Get(int id)
         {
             return await _context.Projects.FirstOrDefaultAsync(x => x.Id == id);
         }
