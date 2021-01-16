@@ -52,10 +52,12 @@ namespace GRT.Controllers
             string query = keyword.KeywordName;
             string domain = keyword.Project.Domain;
             int position = GoogleCustomSearch.SearchWithGoogle(query, domain, cx, apiKey);
-            Result newResult = new Result();
-            newResult.Date = date;
-            newResult.KeywordId = id;
-            newResult.Position = position;
+            var newResult = new Result
+            {
+                Date = date,
+                KeywordId = id,
+                Position = position
+            };
 
             await _context.Results.AddAsync(newResult);
             _context.SaveChanges();
