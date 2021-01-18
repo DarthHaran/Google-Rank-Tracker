@@ -29,5 +29,62 @@ namespace GRT.Controllers
         {
             return await _context.Projects.FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<Project>> Post(Project project)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            _context.Projects.Add(project);
+            await _context.SaveChangesAsync();
+            return Ok(project);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<Project>> Put (Project project)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            
+            try
+            {
+                _context.Entry(project).State = EntityState.Modified;
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw;
+                }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            return Ok(project);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var project = await _context.Projects.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (project == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _context.Projects.Remove(project);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+        }
     }
 }

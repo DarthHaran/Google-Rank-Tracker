@@ -32,7 +32,7 @@ namespace GRT.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Result>> Get(int id)
         {
-            return await _context.Results.Include(x => x.Keyword).FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Results.Include(x => x.Keyword).LastOrDefaultAsync(x => x.KeywordId == id);
         }
 
         [HttpGet]

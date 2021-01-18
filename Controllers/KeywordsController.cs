@@ -30,5 +30,35 @@ namespace GRT.Controllers
         {
             return await _context.Keywords.Include(x => x.Project).Where(x => x.ProjectId == projectId).ToListAsync();
         }
+
+        [HttpPost]
+        public async Task<ActionResult<Keyword>> Post(Keyword keyword)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            _context.Keywords.Add(keyword);
+            await _context.SaveChangesAsync();
+            return Ok(keyword);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var keyword = await _context.Keywords.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (keyword == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                _context.Keywords.Remove(keyword);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+        }
     }
 }
