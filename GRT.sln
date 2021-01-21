@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRT", "GRT.csproj", "{07B7084E-2493-43BC-B8D9-FFDA183DDC4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GRT", "API\GRT.csproj", "{AC9F1B68-5F8E-45BB-8C4E-ACC2218DEF1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{07B7084E-2493-43BC-B8D9-FFDA183DDC4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{07B7084E-2493-43BC-B8D9-FFDA183DDC4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{07B7084E-2493-43BC-B8D9-FFDA183DDC4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{07B7084E-2493-43BC-B8D9-FFDA183DDC4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC9F1B68-5F8E-45BB-8C4E-ACC2218DEF1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC9F1B68-5F8E-45BB-8C4E-ACC2218DEF1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC9F1B68-5F8E-45BB-8C4E-ACC2218DEF1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC9F1B68-5F8E-45BB-8C4E-ACC2218DEF1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
