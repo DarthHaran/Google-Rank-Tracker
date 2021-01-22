@@ -1,7 +1,19 @@
 <app-nav></app-nav>
 
-<div class="container mt-5">
-  <ul>
-    <li *ngFor="let project of projects">{{project.id}} - {{project.projectName}} - {{project.domain}}</li>
-  </ul>
+<div class="container-fluid">
+  <div class="row">
+    <app-side></app-side>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="container-lg">
+        <ul>
+          <li *ngFor="let project of projects">{{project.id}} - {{project.projectName}} - {{project.domain}}</li>
+        </ul>
+      </div>
+    </main>
+
+    
+  </div>
 </div>
+
+
