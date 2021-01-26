@@ -1,0 +1,19 @@
+<form #registerForm="ngForm" (ngSubmit)="addNewProject()" autocomplete="off">
+    <h2 class="text-center text-primary">Project details:</h2>
+    <hr>
+    <div class="form-group">
+        <input type="text" class="form-control" name="projectname" [(ngModel)]="model.projectName"
+            placeholder="Project Name">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="domain" [(ngModel)]="model.domain" placeholder="Domain">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Datepicker" name="date" bsDatepicker
+            value="{{ model.dateAdded | date:'yyyy-MM-dd' }}" [(ngModel)]="model.dateAdded"/>
+    </div>
+    <div class="form-group text-center">
+        <button class="btn btn-success mr-2" type="submit">Add Project</button>
+        <button class="btn btn-warning mr-2" (click)="cancelForm()">Cancel</button>
+    </div>
+</form>

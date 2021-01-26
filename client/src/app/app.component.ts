@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { error } from '@angular/compiler/src/util';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +10,7 @@ export class AppComponent implements OnInit{
   title = 'Google Rank Tracker';
   projects: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.getProjects();
@@ -20,6 +19,7 @@ export class AppComponent implements OnInit{
   getProjects() {
     this.http.get('http://localhost:5000/api/projects').subscribe(response => {
       this.projects = response;
+      this.cd.detectChanges();
     }, error => {
       console.log(error);
     })
