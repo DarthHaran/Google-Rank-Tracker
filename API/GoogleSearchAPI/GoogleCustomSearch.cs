@@ -26,7 +26,7 @@ namespace GRT.GoogleSearchAPI
 
             for (int start = 0; start < 100; start += 10)
             {
-                string result = webClient.DownloadString(string.Format($"https://www.googleapis.com/customsearch/v1?key={0}&cx={1}&q={2}&gl={3}&start={4}&hl={5}&googlehost={6}alt=json", _apiKey, _cx, query, _gl, start, _hl, _googlehost));
+                string result = webClient.DownloadString(string.Format("https://www.googleapis.com/customsearch/v1?key={0}&cx={1}&q={2}&gl={3}&start={4}&hl={5}&googlehost={6}alt=json", _apiKey, _cx, query, _gl, start, _hl, _googlehost));
                 var tokenItems = JObject.Parse(result).SelectToken("items");
                 foreach (var item in tokenItems)
                 {

@@ -23,19 +23,13 @@ namespace GRT.Controllers
             _googleCustomSearch = googleCustomSearch;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Result>>> Get()
-        {
-            return await _context.Results.Include(x => x.Keyword).ToListAsync();
-        }
-
         [HttpGet("{id}")]
         public async Task<ActionResult<Result>> Get(int id)
         {
-            return await _context.Results.Include(x => x.Keyword).LastOrDefaultAsync(x => x.KeywordId == id);
+            return await _context.Results.Include(x => x.Keyword).OrderBy(x => x.Id).LastOrDefaultAsync(x => x.KeywordId == id);
         }
 
-        [HttpGet]
+        [HttpGet("keyword/{keywordId}")]
         public async Task<ActionResult<IEnumerable<Result>>> GetByKeywordId(int keywordId)
         {
             return await _context.Results.Include(x => x.Keyword).Where(x => x.KeywordId == keywordId).ToListAsync();
