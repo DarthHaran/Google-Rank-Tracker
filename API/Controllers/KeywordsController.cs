@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GRT.Services;
 
 namespace GRT.Controllers
 {
@@ -34,6 +35,8 @@ namespace GRT.Controllers
         [HttpPost]
         public async Task<ActionResult<Keyword>> Post(Keyword keyword)
         {
+            keyword.CityBase64 = EncodeService.encodeString(keyword.City);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest();

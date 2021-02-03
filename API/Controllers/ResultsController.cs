@@ -1,6 +1,7 @@
 ﻿using GRT.Data;
 using GRT.Entities;
 using GRT.GoogleSearchAPI;
+using GRT.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -39,7 +40,8 @@ namespace GRT.Controllers
         public async Task<ActionResult> AddByKeywordId(int keywordId)
         {
             var keyword = _context.Keywords.Include(x => x.Project).FirstOrDefault(x => x.Id == keywordId);
-            int position = _googleCustomSearch.GetPosition(keyword.KeywordName, keyword.Project.Domain);
+            var results = GoogleService.ScrapeGoogle(keyword);
+            var position = GoogleService.returnPosition(results, keyword);
 
             var newResult = new Result
             {
