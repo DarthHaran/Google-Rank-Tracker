@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GRT.Services;
+using GRT.Interfaces;
 
 namespace GRT.Controllers
 {
@@ -14,10 +14,12 @@ namespace GRT.Controllers
     public class KeywordsController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly ISearchProviderService _searchProvider;
 
-        public KeywordsController(DataContext context)
+        public KeywordsController(DataContext context, ISearchProviderService searchProvider)
         {
             _context = context;
+            _searchProvider = searchProvider;
         }
 
         [HttpGet("{id}")]
@@ -33,9 +35,9 @@ namespace GRT.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Keyword>> Post(Keyword keyword)
+        public async Task<ActionResult<Keyword>> Add(Keyword keyword)
         {
-            keyword.CityBase64 = EncodeService.encodeString(keyword.City);
+            keyword.CityBase64 = _searchProvider.GetEncodedName(keyword.City);
 
             if (!ModelState.IsValid)
             {

@@ -1,5 +1,6 @@
 using GRT.Data;
-using GRT.GoogleSearchAPI;
+using GRT.Interfaces;
+using GRT.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +27,7 @@ namespace GRT
             {
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
             });
-            services.AddScoped<IGoogleCustomSearch, GoogleCustomSearch>();
+            services.AddScoped<ISearchProviderService, SearchProviderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

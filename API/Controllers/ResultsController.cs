@@ -1,13 +1,13 @@
 ﻿using GRT.Data;
 using GRT.Entities;
-using GRT.GoogleSearchAPI;
-using GRT.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GRT.Extensions;
+using GRT.Interfaces;
 
 namespace GRT.Controllers
 {
@@ -16,16 +16,16 @@ namespace GRT.Controllers
     public class ResultsController : ControllerBase
     {
         private readonly DataContext _context;
-        private readonly IGoogleCustomSearch _googleCustomSearch;
+        private readonly ISearchProviderService _searchProvider;
 
-        public ResultsController(DataContext context, IGoogleCustomSearch googleCustomSearch)
+        public ResultsController(DataContext context, ISearchProviderService searchProvider)
         {
             _context = context;
-            _googleCustomSearch = googleCustomSearch;
+            _searchProvider = searchProvider;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Result>> Get(int id)
+        public async Task<ActionResult<Result>> GetById(int id)
         {
             return await _context.Results.Include(x => x.Keyword).OrderBy(x => x.Id).LastOrDefaultAsync(x => x.KeywordId == id);
         }
@@ -37,11 +37,11 @@ namespace GRT.Controllers
         }
 
         [HttpPost("keyword/{keywordId}")]
-        public async Task<ActionResult> AddByKeywordId(int keywordId)
+        public async Task<ActionResult> Add(int keywordId)
         {
             var keyword = _context.Keywords.Include(x => x.Project).FirstOrDefault(x => x.Id == keywordId);
-            var results = GoogleService.ScrapeGoogle(keyword);
-            var position = GoogleService.returnPosition(results, keyword);
+            var results = _searchProvider.GetResults(keyword);
+            var position = SearchProviderExtensions.GetPosition(results, keyword);
 
             var newResult = new Result
             {

@@ -31,7 +31,7 @@ namespace GRT.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Project>> Post(Project project)
+        public async Task<ActionResult<Project>> Add(Project project)
         {
             if (!ModelState.IsValid)
             {
@@ -44,7 +44,7 @@ namespace GRT.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<Project>> Put (Project project)
+        public async Task<ActionResult<Project>> Update (Project project)
         {
             if (!ModelState.IsValid)
             {
