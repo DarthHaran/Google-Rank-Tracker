@@ -5,7 +5,7 @@ namespace GRT.Extensions
 {
     public static class SearchProviderExtensions
     {
-        public static int GetPosition(List<SearchEntry> searchEntries, Keyword keyword)
+        public static int GetPosition(this List<SearchEntry> searchEntries, Keyword keyword)
         {
             string domain = keyword.Project.Domain;
             var index = searchEntries.FindIndex(x => x.Url.Contains(domain));

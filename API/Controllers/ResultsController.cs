@@ -40,8 +40,7 @@ namespace GRT.Controllers
         public async Task<ActionResult> Add(int keywordId)
         {
             var keyword = _context.Keywords.Include(x => x.Project).FirstOrDefault(x => x.Id == keywordId);
-            var results = _searchProvider.GetResults(keyword);
-            var position = SearchProviderExtensions.GetPosition(results, keyword);
+            var position = _searchProvider.GetResults(keyword).GetPosition(keyword);
 
             var newResult = new Result
             {
