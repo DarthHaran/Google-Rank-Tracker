@@ -1,9 +1,7 @@
-﻿using GRT.Data;
-using GRT.Entities;
+﻿using GRT.Entities;
+using GRT.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GRT.Controllers
@@ -12,45 +10,43 @@ namespace GRT.Controllers
     [Route("api/[controller]")]
     public class KeywordsController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IKeywordRepository _repository;
 
-        public KeywordsController(DataContext context)
+        public KeywordsController(IKeywordRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Keyword>> Get(int id)
         {
-            return await _context.Keywords.Include(x => x.Project).FirstOrDefaultAsync(x => x.Id == id);
+            return Ok(await _repository.GetKeyword(id));
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Keyword>>> GetByProjectId(int projectId)
         {
-            return await _context.Keywords.Include(x => x.Project).Where(x => x.ProjectId == projectId).ToListAsync();
+            return Ok(await _repository.GetKeywordsOfProject(projectId));
         }
 
         [HttpPost]
         public async Task<ActionResult<Keyword>> Add(Keyword keyword)
         {
-            _context.Keywords.Add(keyword);
-            await _context.SaveChangesAsync();
+            await _repository.AddKeyword(keyword);
             return Ok(keyword);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var keyword = await _context.Keywords.FirstOrDefaultAsync(x => x.Id == id);
+            var keyword = await _repository.GetKeyword(id);
 
             if (keyword == null)
             {
                 return BadRequest();
             }
-            
-            _context.Keywords.Remove(keyword);
-            await _context.SaveChangesAsync();
+
+            await _repository.DeleteKeyword(keyword);
             return Ok();
         }
     }

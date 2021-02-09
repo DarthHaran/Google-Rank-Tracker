@@ -1,5 +1,6 @@
 using GRT.Data;
 using GRT.Interfaces;
+using GRT.Repository;
 using GRT.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +29,9 @@ namespace GRT
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<ISearchProviderService, SearchProviderService>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<IKeywordRepository, KeywordRepository>();
+            services.AddScoped<IResultRepository, ResultRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

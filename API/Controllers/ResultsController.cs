@@ -1,10 +1,7 @@
-﻿using GRT.Data;
-using GRT.Entities;
+﻿using GRT.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using GRT.Extensions;
 using GRT.Interfaces;
@@ -15,31 +12,35 @@ namespace GRT.Controllers
     [Route("api/[controller]")]
     public class ResultsController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IResultRepository _resultRepository;
+        private readonly IKeywordRepository _keywordRepository;
         private readonly ISearchProviderService _searchProvider;
 
-        public ResultsController(DataContext context, ISearchProviderService searchProvider)
+        public ResultsController(IResultRepository resultRepository,
+            IKeywordRepository keywordRepository,
+            ISearchProviderService searchProvider)
         {
-            _context = context;
+            _resultRepository = resultRepository;
+            _keywordRepository = keywordRepository;
             _searchProvider = searchProvider;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Result>> GetById(int id)
+        public async Task<ActionResult<Result>> GetLastResult(int id)
         {
-            return await _context.Results.Include(x => x.Keyword).OrderBy(x => x.Id).LastOrDefaultAsync(x => x.KeywordId == id);
+            return Ok(await _resultRepository.GetLastResult(id));
         }
 
         [HttpGet("keyword/{keywordId}")]
         public async Task<ActionResult<IEnumerable<Result>>> GetByKeywordId(int keywordId)
         {
-            return await _context.Results.Include(x => x.Keyword).Where(x => x.KeywordId == keywordId).ToListAsync();
+            return Ok(await _resultRepository.GetAllResults(keywordId));
         }
 
         [HttpPost("keyword/{keywordId}")]
         public async Task<ActionResult> Add(int keywordId)
         {
-            var keyword = _context.Keywords.Include(x => x.Project).FirstOrDefault(x => x.Id == keywordId);
+            var keyword = await _keywordRepository.GetKeyword(keywordId);
             var position = _searchProvider.GetResults(keyword).GetPosition(keyword);
 
             var newResult = new Result
@@ -49,8 +50,7 @@ namespace GRT.Controllers
                 Position = position,
             };
 
-            await _context.Results.AddAsync(newResult);
-            _context.SaveChanges();
+            await _resultRepository.AddResult(newResult);
             return Ok(newResult);
         }
     }

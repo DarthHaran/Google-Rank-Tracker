@@ -1,7 +1,6 @@
-﻿using GRT.Data;
-using GRT.Entities;
+﻿using GRT.Entities;
+using GRT.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,69 +10,43 @@ namespace GRT.Controllers
     [Route("api/[controller]")]
     public class ProjectsController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IProjectRepository _repository;
 
-        public ProjectsController(DataContext context)
+        public ProjectsController(IProjectRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> Get()
         {
-            return await _context.Projects.ToListAsync();
+            return Ok(await _repository.GetProjectsAsync());
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Project>> Get(int id)
         {
-            return await _context.Projects.FirstOrDefaultAsync(x => x.Id == id);
+            return Ok(await _repository.GetProjectAsync(id));
         }
 
         [HttpPost]
         public async Task<ActionResult<Project>> Add(Project project)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            _context.Projects.Add(project);
-            await _context.SaveChangesAsync();
+            await _repository.AddProject(project);
             return Ok(project);
         }
 
         [HttpPut]
         public async Task<ActionResult<Project>> Update (Project project)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-            
-            try
-            {
-                _context.Entry(project).State = EntityState.Modified;
-                try
-                {
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    throw;
-                }
-            }
-            catch
-            {
-                return BadRequest();
-            }
+            await _repository.UpdateProject(project);
             return Ok(project);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var project = await _context.Projects.FirstOrDefaultAsync(x => x.Id == id);
+            var project = await _repository.GetProjectAsync(id);
 
             if (project == null)
             {
@@ -81,8 +54,7 @@ namespace GRT.Controllers
             }
             else
             {
-                _context.Projects.Remove(project);
-                await _context.SaveChangesAsync();
+                await _repository.DeleteProject(project);
                 return Ok();
             }
         }
