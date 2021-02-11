@@ -1,5 +1,7 @@
 export interface Project {
-    projectName: string;
-    domain: string;
-    dateAdded: Date;
+    id: number,
+    projectName: string,
+    domain: string,
+    dateAdded: Date,
+    editable: boolean
 }

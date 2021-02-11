@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { ReplaySubject } from "rxjs";
 import { Project } from "../_models/project";
 
 
@@ -9,7 +8,6 @@ import { Project } from "../_models/project";
 })
 export class ProjectService{
     baseUrl = 'http://localhost:5000/api/';
-    private currentProjectSource = new ReplaySubject<Project>(1);
     
     constructor(private http: HttpClient) {}
 
@@ -17,7 +15,15 @@ export class ProjectService{
         return this.http.post(this.baseUrl + 'projects', model);
     }
 
-    deleteProject(model: any){
-        return this.http.delete(this.baseUrl + 'projects' + model.id)
+    deleteProject(id: number) {
+        return this.http.delete(this.baseUrl + 'projects/' + id);
+    }
+
+    putProject(postData: Project) {
+        return this.http.put(this.baseUrl + "projects", postData);
+    }
+
+    getAllProjects() {
+        return this.http.get<Project[]>(this.baseUrl + 'projects');
     }
 }

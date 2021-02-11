@@ -1,19 +1,24 @@
-<app-nav></app-nav>
 
-<div class="container-fluid">
-  <div class="row">
-    <app-side></app-side>
+  <app-nav></app-nav>
 
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <div class="container-lg">
-        <ul>
-          <li *ngFor="let project of projects">{{project.id}} - {{project.projectName}} - {{project.domain}}</li>
-        </ul>
-      </div>
-    </main>
+  <div class="container-fluid">
+    <div class="row">
+      <app-side></app-side>
 
-    
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div class="container-lg">
+          <div class="container">
+
+            <app-addproject *ngIf="additional.formShown"></app-addproject>
+            <div class="row">
+              <div class="col-12">
+                <app-projects></app-projects>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+
+    </div>
   </div>
-</div>
-
-

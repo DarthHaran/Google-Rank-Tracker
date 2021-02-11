@@ -10,13 +10,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
 import { SideComponent } from './side/side.component';
 import { AddprojectComponent } from './addproject/addproject.component';
+import { ProjectsComponent } from './projects/projects.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     SideComponent,
-    AddprojectComponent
+    AddprojectComponent,
+    ProjectsComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,7 @@ import { AddprojectComponent } from './addproject/addproject.component';
     FormsModule,
     BsDatepickerModule.forRoot()
   ],
-  providers: [],
+  providers: [AddprojectComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

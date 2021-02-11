@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { AdditionalService } from '../_services/additional.service';
 import { ProjectService } from '../_services/project.service';
 
 @Component({
@@ -10,7 +10,12 @@ import { ProjectService } from '../_services/project.service';
 export class AddprojectComponent implements OnInit {
   model: any = {};
 
-  constructor(private projectService: ProjectService, private router: Router, private cd: ChangeDetectorRef) { }
+  @Input() projectname: string;
+  @Input() domain: string;
+  @Input() date: Date;
+
+  constructor(private projectService: ProjectService,
+    public additional: AdditionalService) { }
 
   ngOnInit(): void {
   }
@@ -19,14 +24,8 @@ export class AddprojectComponent implements OnInit {
     this.projectService.addProject(this.model).subscribe(response => {
       console.log(response);
       location.assign('');
-      //location.reload();
     }, error => {
       console.log(error);
     })
   }
-
-  cancelForm(){
-    location.assign('');
-  }
-
 }

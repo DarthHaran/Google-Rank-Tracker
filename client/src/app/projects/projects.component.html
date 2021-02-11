@@ -1,0 +1,42 @@
+<table class="table table-striped">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col">Project Name</th>
+        <th scope="col">Domain</th>
+        <th scope="col">Date Added</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let project of projects">
+        <td>
+            <div>
+                <div *ngIf="project.editable">
+                  <input name="project.projectName" [(ngModel)]="project.projectName" placeholder="{{project.projectName}}" />
+                </div>
+                <div *ngIf="!project.editable">
+                  <a tabindex="0">{{project.projectName}}</a>
+                </div>
+              </div>
+        </td>
+        <td>
+          <div>
+              <div *ngIf="project.editable">
+                <input name="project.domain" [(ngModel)]="project.domain" placeholder="{{project.domain}}" />
+              </div>
+              <div *ngIf="!project.editable">
+                <p>{{project.domain}}</p>
+              </div>
+            </div>
+        </td>
+        <td>{{project.dateAdded}}</td>
+        <td>
+          <button *ngIf="!project.editable" (click)="deleteProject(project.id)" type="button" class="btn btn-danger mr-2">Delete</button>
+          <button *ngIf="!project.editable" (click)="switchEdit(project)" type="button" class="btn btn-info mr-2">Edit</button>
+          <button *ngIf="project.editable" (click)="editProject(project)" type="button" class="btn btn-info mr-2">Save</button>
+          <button *ngIf="project.editable" (click)="switchEdit(project)" type="button" class="btn btn-warning mr-2">Cancel</button>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
