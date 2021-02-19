@@ -41,7 +41,7 @@ namespace GRT.Controllers
         public async Task<ActionResult> Add(int keywordId)
         {
             var keyword = await _keywordRepository.GetKeyword(keywordId);
-            var position = _searchProvider.GetResults(keyword).GetPosition(keyword);
+            var position = _searchProvider.GetResultsWithSelenium(keyword).GetPosition(keyword);
 
             var newResult = new Result
             {

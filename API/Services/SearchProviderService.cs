@@ -1,6 +1,9 @@
 ﻿using GRT.Entities;
 using GRT.Interfaces;
 using HtmlAgilityPack;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +43,34 @@ namespace GRT.Services
                     Content = contentDiv.InnerHtml
                 };
             }).ToList();
+        }
+
+        public List<SearchEntry> GetResultsWithSelenium(Keyword keyword)
+        {
+            var url = string.Format("https://www.{0}/search?&q={1}&gws_rd=cr&gl={2}&hl={3}&num=100&uule={4}", keyword.GoogleHost, keyword.KeywordName,
+                keyword.Country, keyword.Language, GetUule(keyword.City));
+            ChromeOptions options = new ChromeOptions();
+            options.AddArgument("--headless");
+            
+
+            using (IWebDriver driver = new ChromeDriver(options))
+            {
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                driver.Navigate().GoToUrl(url);
+                var results = driver.FindElements(By.ClassName("g"));
+
+                return results.Select(result =>
+                {
+                    var j = result.FindElement(By.TagName("a"));
+
+                    return new SearchEntry
+                    {
+                        Title = null,
+                        Url = j.GetAttribute("href"),
+                        Content = null
+                    };
+                }).ToList();
+            }
         }
 
         private string GetUule(string text)

@@ -6,5 +6,6 @@ namespace GRT.Interfaces
     public interface ISearchProviderService
     {
         List<SearchEntry> GetResults(Keyword keyword);
+        List<SearchEntry> GetResultsWithSelenium(Keyword keyword);
     }
 }
