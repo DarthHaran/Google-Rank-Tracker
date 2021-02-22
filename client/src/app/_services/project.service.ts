@@ -11,7 +11,7 @@ export class ProjectService{
     
     constructor(private http: HttpClient) {}
 
-    addProject(model: any){
+    addProject(model: Project){
         return this.http.post(this.baseUrl + 'projects', model);
     }
 
@@ -25,5 +25,9 @@ export class ProjectService{
 
     getAllProjects() {
         return this.http.get<Project[]>(this.baseUrl + 'projects');
+    }
+
+    getProject(id: number) {
+        return this.http.get<Project>(this.baseUrl + 'projects/' + id);
     }
 }
