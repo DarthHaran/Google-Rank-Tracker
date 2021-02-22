@@ -11,6 +11,10 @@ import { NavComponent } from './nav/nav.component';
 import { SideComponent } from './side/side.component';
 import { AddprojectComponent } from './addproject/addproject.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { KeywordsComponent } from './keywords/keywords.component';
+import { AddKeywordComponent } from './keywords/add-keyword/add-keyword.component'
+import { ChartsModule } from 'ng2-charts';
+import { KeywordChartComponent } from './keywords/keyword-chart/keyword-chart.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,10 @@ import { ProjectsComponent } from './projects/projects.component';
     NavComponent,
     SideComponent,
     AddprojectComponent,
-    ProjectsComponent
+    ProjectsComponent,
+    KeywordsComponent,
+    AddKeywordComponent,
+    KeywordChartComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +33,8 @@ import { ProjectsComponent } from './projects/projects.component';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    ChartsModule
   ],
   providers: [AddprojectComponent],
   bootstrap: [AppComponent]

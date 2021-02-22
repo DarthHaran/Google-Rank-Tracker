@@ -1,0 +1,24 @@
+<form #addform="ngForm" (ngSubmit)="addNewKeyword()" autocomplete="off"> 
+    <h2 class="text-center text-primary">New Keyword details:</h2>
+    <hr>
+    <div class="form-group">
+        <input type="text" class="form-control" name="keywordName" [(ngModel)]="model.keywordName"
+            placeholder="Keyword Name">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="googleHost" [(ngModel)]="model.googleHost" placeholder="google.com">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="language" [(ngModel)]="model.language" placeholder="sr">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="country" [(ngModel)]="model.country" placeholder="rs">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="city" [(ngModel)]="model.city" placeholder="Belgrade">
+    </div>
+    <div class="form-group text-center">
+        <button class="btn btn-primary mr-2" type="submit">Add Keyword</button>
+        <button class="btn btn-warning mr-2" (click)="switch()" type="button">Cancel</button>
+    </div>
+</form>
