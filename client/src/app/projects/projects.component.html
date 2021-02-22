@@ -1,4 +1,5 @@
-<table class="table table-striped">
+<div class="container mt-5">
+  <table class="table table-striped">
     <thead>
       <tr class="table-primary">
         <th scope="col">Project Name</th>
@@ -8,35 +9,40 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let project of projects">
+      <tr *ngFor="let project of projects" [routerLink]="['/keywords', project.id]" tabindex="0" class="clickable-row">
         <td>
-            <div>
-                <div *ngIf="project.editable">
-                  <input name="project.projectName" [(ngModel)]="project.projectName" placeholder="{{project.projectName}}" />
-                </div>
-                <div *ngIf="!project.editable">
-                  <a tabindex="0">{{project.projectName}}</a>
-                </div>
-              </div>
+          <div>
+            <div *ngIf="project.editable" (click)="$event.stopPropagation()">
+              <input name="project.projectName" [(ngModel)]="project.projectName"
+                placeholder="{{project.projectName}}" />
+            </div>
+            <div *ngIf="!project.editable">
+              <p>{{project.projectName}}</p>
+            </div>
+          </div>
         </td>
         <td>
           <div>
-              <div *ngIf="project.editable">
-                <input name="project.domain" [(ngModel)]="project.domain" placeholder="{{project.domain}}" />
-              </div>
-              <div *ngIf="!project.editable">
-                <p>{{project.domain}}</p>
-              </div>
+            <div *ngIf="project.editable" (click)="$event.stopPropagation()">
+              <input name="project.domain" [(ngModel)]="project.domain" placeholder="{{project.domain}}" />
             </div>
+            <div *ngIf="!project.editable">
+              <p>{{project.domain}}</p>
+            </div>
+          </div>
         </td>
         <td>{{project.dateAdded}}</td>
         <td>
-          <button *ngIf="!project.editable" (click)="deleteProject(project.id)" type="button" class="btn btn-danger mr-2">Delete</button>
-          <button *ngIf="!project.editable" (click)="switchEdit(project)" type="button" class="btn btn-info mr-2">Edit</button>
-          <button *ngIf="project.editable" (click)="editProject(project)" type="button" class="btn btn-info mr-2">Save</button>
-          <button *ngIf="project.editable" (click)="switchEdit(project)" type="button" class="btn btn-warning mr-2">Cancel</button>
-
+          <button *ngIf="!project.editable" (click)="deleteProject($event, project.id)" type="button"
+            class="btn btn-danger mr-2">Delete</button>
+          <button *ngIf="!project.editable" (click)="switchEdit($event, project)" type="button"
+            class="btn btn-info mr-2">Edit</button>
+          <button *ngIf="project.editable" (click)="editProject($event, project)" type="button"
+            class="btn btn-info mr-2">Save</button>
+          <button *ngIf="project.editable" (click)="switchEdit($event, project)" type="button"
+            class="btn btn-warning mr-2">Cancel</button>
         </td>
       </tr>
     </tbody>
   </table>
+</div>

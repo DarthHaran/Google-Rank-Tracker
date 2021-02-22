@@ -33,7 +33,8 @@ export class ProjectsComponent implements OnInit {
     }) 
   }
 
-  deleteProject(id: number){
+  deleteProject(event: any, id: number){
+    event.stopPropagation();
     this.projectService.deleteProject(id).subscribe(response => {
       this.projects = this.projects.filter(x => x.id !== id);
     }, error => {
@@ -41,15 +42,16 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
-  editProject(projecttosave: Project) {
+  editProject(event: any, projecttosave: Project) {
+    event.stopPropagation();
     this.projectService.putProject(projecttosave).subscribe(response => {
       // this.editedProject = response;
-      this.switchEdit(projecttosave);
-
+      this.switchEdit(event, projecttosave);
     })
   }
   
-  switchEdit(project: Project) {
+  switchEdit(event: any, project: Project) {
+    event.stopPropagation();
     project.editable = !project.editable;
   }
 }
