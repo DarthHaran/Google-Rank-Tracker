@@ -1,43 +1,44 @@
 <div class="container mt-5">
     <h2>Project: {{!!project ? project.projectName : "loading"}}</h2>
     <app-keyword-chart [id]="id"></app-keyword-chart>
-    <app-add-keyword *ngIf="formShown" (switchForm)="switchForm()" 
-        [id]="id"></app-add-keyword>
-    <button (click)="switchForm()" type="button" *ngIf="!formShown" 
-        class="btn btn-primary mr-2">Add New Keyword</button>
-    <table class="table table-striped">
-        <thead>
-            <tr class="table-primary">
-                <th scope="col">Keyword Name</th>
-                <th scope="col" >Position</th>
-                <th scope="col" >Last Checked</th>
-                <th scope="col">Google Host</th>
-                <th scope="col">City</th>
-                <th scope="col">Country</th>
-                <th scope="col">Language</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let keyword of keywords">
-                <td><b>{{keyword.keywordName}}</b></td>
-                <td>{{keyword.lastPosition}}</td>
-                <td>{{keyword.lastSearch}}</td>
-                <td>{{keyword.googleHost}}</td>
-                <td>{{keyword.city}}</td>
-                <td>{{keyword.country}}</td>
-                <td>{{keyword.language}}</td>
-                <td>
-                    <button (click)="deleteKeyword(keyword.id)" type="button"
-                        class="btn btn-danger mr-2">Delete</button>
+    <app-add-keyword *ngIf="formShown" (switchForm)="switchForm()" [id]="id"></app-add-keyword>
+    <button (click)="switchForm()" type="button" *ngIf="!formShown" class="btn btn-primary mr-2">Add New
+        Keyword</button>
+    
+    <button type="button" *ngIf="!formShown" class="btn btn-primary mr-2" (click)="downloadReport()">Download Report</button>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr class="table-primary">
+                    <th scope="col">Keyword Name</th>
+                    <th scope="col">Position</th>
+                    <th scope="col">Last Checked</th>
+                    <th scope="col">Google Host</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">Language</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let keyword of keywords">
+                    <td><b>{{keyword.keywordName}}</b></td>
+                    <td>{{keyword.lastPosition}}</td>
+                    <td>{{keyword.lastSearch}}</td>
+                    <td>{{keyword.googleHost}}</td>
+                    <td>{{keyword.city}}</td>
+                    <td>{{keyword.country}}</td>
+                    <td>{{keyword.language}}</td>
+                    <td>
+                        <button (click)="deleteKeyword(keyword.id)" type="button"
+                            class="btn btn-danger mr-2">Delete</button>
 
-                    <button (click)="reloadPosition(keyword.id)" type="button"
-                    class="btn btn-info mr-2">Reload</button>
+                        <button (click)="reloadPosition(keyword.id)" type="button"
+                            class="btn btn-info mr-2">Reload</button>
 
-                    <button (click)="chartResults(keyword.id)" type="button"
-                    class="btn btn-success mr-2">Chart</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+                        <button (click)="chartResults(keyword.id)" type="button"
+                            class="btn btn-success mr-2">Chart</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { from } from 'rxjs';
 import { Keyword } from '../_models/keyword';
 import { Project } from '../_models/project';
 import { Result } from '../_models/result';
@@ -7,6 +8,7 @@ import { KeywordService } from '../_services/keyword.service';
 import { ProjectService } from '../_services/project.service';
 import { ResultService } from '../_services/result.service';
 import { KeywordChartComponent } from './keyword-chart/keyword-chart.component';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-keywords',
@@ -82,5 +84,13 @@ export class KeywordsComponent implements OnInit {
 
   chartResults(id: number) {
     this.child.getResults(id);
+  }
+
+  downloadReport() {
+    this.resultService.getReport(this.id).subscribe(response => {
+      var newBlob = new Blob([response], { type: "text/csv"});
+      saveAs(newBlob, "report.csv");
+      
+    })
   }
 }

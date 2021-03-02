@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 import { Result } from "../_models/result";
 
 
@@ -21,5 +22,9 @@ export class ResultService{
 
     addResult(keywordId: number) {
         return this.http.post(this.baseUrl + 'results/keyword/' + keywordId, null);
+    }
+
+    getReport(projectId: number): Observable<Blob> {
+        return this.http.get(this.baseUrl + 'results/report/' + projectId, {responseType: 'blob'});
     }
 }

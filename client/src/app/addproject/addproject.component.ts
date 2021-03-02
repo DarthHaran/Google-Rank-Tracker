@@ -23,7 +23,7 @@ export class AddprojectComponent implements OnInit {
   addNewProject(){
     this.projectService.addProject(this.model).subscribe(response => {
       console.log(response);
-      location.assign('');
+      location.assign('/projects');
     }, error => {
       console.log(error);
     })
