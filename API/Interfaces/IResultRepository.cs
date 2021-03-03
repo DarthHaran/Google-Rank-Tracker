@@ -9,5 +9,6 @@ namespace GRT.Interfaces
         Task<Result> GetLastResult(int keywordId);
         Task<IEnumerable<Result>> GetAllResults(int keywordId);
         Task AddResult(Result result);
+        Task<Result> GetLastMonthsResult(int keywordId);
     }
 }
