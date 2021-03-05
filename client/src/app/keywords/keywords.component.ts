@@ -86,10 +86,18 @@ export class KeywordsComponent implements OnInit {
     this.child.getResults(id);
   }
 
-  downloadReport() {
-    this.resultService.getReport(this.id).subscribe(response => {
+  downloadMonthlyReport() {
+    this.resultService.getMonthlyReport(this.id).subscribe(response => {
       var newBlob = new Blob([response], { type: "text/csv"});
-      saveAs(newBlob, "report.csv");
+      saveAs(newBlob, this.project.projectName + "-monthly report.csv");
+      
+    })
+  }
+
+  downloadCurrentReport() {
+    this.resultService.getCurrentReport(this.id).subscribe(response => {
+      var newBlob = new Blob([response], { type: "text/csv"});
+      saveAs(newBlob, this.project.projectName + "-current report.csv");
       
     })
   }

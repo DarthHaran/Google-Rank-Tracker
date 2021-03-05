@@ -15,6 +15,8 @@ import { KeywordsComponent } from './keywords/keywords.component';
 import { AddKeywordComponent } from './keywords/add-keyword/add-keyword.component'
 import { ChartsModule } from 'ng2-charts';
 import { KeywordChartComponent } from './keywords/keyword-chart/keyword-chart.component';
+import { NgxPopper } from 'angular-popper';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { KeywordChartComponent } from './keywords/keyword-chart/keyword-chart.co
     BrowserAnimationsModule,
     FormsModule,
     BsDatepickerModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    NgxPopper,
+    BsDropdownModule.forRoot()
   ],
   providers: [AddprojectComponent],
   bootstrap: [AppComponent]

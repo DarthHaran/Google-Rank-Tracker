@@ -24,7 +24,11 @@ export class ResultService{
         return this.http.post(this.baseUrl + 'results/keyword/' + keywordId, null);
     }
 
-    getReport(projectId: number): Observable<Blob> {
+    getMonthlyReport(projectId: number): Observable<Blob> {
         return this.http.get(this.baseUrl + 'results/report/' + projectId, {responseType: 'blob'});
+    }
+
+    getCurrentReport(projectId: number): Observable<Blob> {
+        return this.http.get(this.baseUrl + 'results/report-current/' + projectId, {responseType: 'blob'});
     }
 }

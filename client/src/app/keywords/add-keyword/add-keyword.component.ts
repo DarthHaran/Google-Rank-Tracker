@@ -42,7 +42,7 @@ export class AddKeywordComponent implements OnInit {
       this.keyword = response;
       this.resultService.addResult(this.keyword.id).subscribe(response => {
         console.log(response);
-        location.reload;
+        location.reload();
       });
     })
   }
