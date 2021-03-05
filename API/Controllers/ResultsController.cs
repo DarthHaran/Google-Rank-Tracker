@@ -62,7 +62,7 @@ namespace GRT.Controllers
         }
 
         [HttpGet("report/{id}")]
-        public async Task<FileResult> GetReport(int id)
+        public async Task<FileResult> GetMonthlyReport(int id)
         {
             IEnumerable<Keyword> keywords = await _keywordRepository.GetKeywordsOfProject(id);
             List<ReportRow> rows = new List<ReportRow>();
@@ -77,6 +77,35 @@ namespace GRT.Controllers
                     LastPosition = lastResult.Position,
                     LastMonthsPosition = lastMonthsResult.Position
                 };
+
+                rows.Add(row);
+            }
+
+            using (var writer = new StreamWriter(@"C:\Users\Haran\source\repos\CSV_console\report.csv"))
+            {
+                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
+                    csv.WriteRecords(rows);
+                }
+            }
+
+            var reader = new StreamReader(@"C:\Users\Haran\source\repos\CSV_console\report.csv");
+            byte[] file = Encoding.UTF8.GetBytes(reader.ReadToEnd().ToString());
+            reader.Close();
+
+            return File(file, "text/csv", "report.csv");
+        }
+
+        [HttpGet("report-current/{id}")]
+        public async Task<FileResult> GetCurrentPositionsReport(int id)
+        {
+            IEnumerable<Keyword> keywords = await _keywordRepository.GetKeywordsOfProject(id);
+            List<Tuple<string, int>> rows = new List<Tuple<string, int>>();
+
+            foreach (var k in keywords)
+            {
+                var lastResult = await _resultRepository.GetLastResult(k.Id);
+                Tuple<string, int> row = new Tuple<string, int> (k.KeywordName, lastResult.Position);
 
                 rows.Add(row);
             }
