@@ -19,6 +19,7 @@ export class KeywordsComponent implements OnInit {
   keywords: Keyword[];
   project: Project;
   result: Result;
+  selectedKeyword: string;
   id: number;
   resultShown: boolean;
   formShown: boolean;
@@ -43,6 +44,7 @@ export class KeywordsComponent implements OnInit {
       this.keywords = keywords;
       this.chartResults(this.keywords[0].id);
       this.setPositions();
+      this.selectedKeyword = this.keywords[0].keywordName;
     });
   }
 
@@ -84,6 +86,7 @@ export class KeywordsComponent implements OnInit {
 
   chartResults(id: number) {
     this.child.getResults(id);
+    this.selectedKeyword = this.keywords.find(x => x.id == id).keywordName;
   }
 
   downloadMonthlyReport() {

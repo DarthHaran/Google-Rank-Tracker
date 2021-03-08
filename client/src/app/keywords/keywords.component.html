@@ -1,13 +1,13 @@
 <div class="container mt-5">
-    <h2>Project: {{!!project ? project.projectName : "loading"}}</h2>
+    <h2>{{!!project ? project.projectName : "loading"}} - {{selectedKeyword}}</h2>
     <app-keyword-chart [id]="id"></app-keyword-chart>
     <app-add-keyword *ngIf="formShown" (switchForm)="switchForm()" [id]="id"></app-add-keyword>
-    <button (click)="switchForm()" type="button" *ngIf="!formShown" class="btn btn-primary mr-2">Add New
+    <button (click)="switchForm()" type="button" *ngIf="!formShown" class="btn btn-primary mr-2 mb-2">Add New
         Keyword</button>
 
     <div class="btn-group" dropdown #dropdown="bs-dropdown" [autoClose]="true">
         <button id="button-basic" dropdownToggle type="button" 
-           class="btn btn-primary dropdown-toggle"
+           class="btn btn-primary dropdown-toggle mb-2"
            aria-controls="dropdown-basic">
            Download Report <span class="caret"></span>
         </button>
