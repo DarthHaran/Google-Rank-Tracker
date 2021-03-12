@@ -31,16 +31,16 @@
             </div>
           </div>
         </td>
-        <td>{{project.dateAdded}}</td>
+        <td>{{project.dateAdded | date: "dd.MM.yyyy."}}</td>
         <td>
           <button *ngIf="!project.editable" (click)="deleteProject($event, project.id)" type="button"
-            class="btn btn-danger mr-2">Delete</button>
+            class="btn btn-danger mr-1">Delete</button>
           <button *ngIf="!project.editable" (click)="switchEdit($event, project)" type="button"
-            class="btn btn-info mr-2">Edit</button>
+            class="btn btn-info mr-1">Edit</button>
           <button *ngIf="project.editable" (click)="editProject($event, project)" type="button"
-            class="btn btn-info mr-2">Save</button>
+            class="btn btn-info mr-1">Save</button>
           <button *ngIf="project.editable" (click)="switchEdit($event, project)" type="button"
-            class="btn btn-warning mr-2">Cancel</button>
+            class="btn btn-warning mr-1">Cancel</button>
         </td>
       </tr>
     </tbody>

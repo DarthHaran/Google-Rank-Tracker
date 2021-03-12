@@ -35,18 +35,18 @@
             <tr *ngFor="let keyword of keywords">
                 <td><b>{{keyword.keywordName}}</b></td>
                 <td>{{keyword.lastPosition}}</td>
-                <td>{{keyword.lastSearch}}</td>
+                <td>{{keyword.lastSearch | date: "dd.MM.yyyy."}}</td>
                 <td>{{keyword.googleHost}}</td>
                 <td>{{keyword.city}}</td>
                 <td>{{keyword.country}}</td>
                 <td>{{keyword.language}}</td>
                 <td>
                     <button (click)="deleteKeyword(keyword.id)" type="button"
-                        class="btn btn-danger mr-2">Delete</button>
-
-                    <button (click)="reloadPosition(keyword.id)" type="button" class="btn btn-info mr-2">Reload</button>
-
-                    <button (click)="chartResults(keyword.id)" type="button" class="btn btn-success mr-2">Chart</button>
+                        class="btn btn-danger mr-1">Delete</button>
+                    <button (click)="reloadPosition(keyword.id)" type="button" 
+                        class="btn btn-info mr-1">Reload</button>
+                    <button (click)="chartResults(keyword.id)" type="button" 
+                        class="btn btn-success mr-1">Chart</button>
                 </td>
             </tr>
         </tbody>
